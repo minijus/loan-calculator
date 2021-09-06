@@ -1,0 +1,53 @@
+<app-menu>{{title}}</app-menu>
+<div class="container">  
+  <form (submit)="saveChanges()" [formGroup] = "form" id="loanPayloadForm">
+    <div class="field-container">
+    <mat-form-field appearance="outline">
+      <mat-label>Monthly income*</mat-label>
+      <input formControlName="monthlyIncome" matInput type="number" />
+      <mat-error *ngIf="form.invalid">{{ValidateMonthlyIncome()}}</mat-error>
+    </mat-form-field>
+  </div>
+  <div class="field-container">
+    <mat-form-field appearance="outline">
+      <mat-label>Requested Amount*</mat-label>
+      <input formControlName="requestedAmount" matInput type="number" />
+      <mat-error *ngIf="form.invalid">{{ValidateRequestedAmount()}}</mat-error>
+    </mat-form-field>
+  </div>
+  <div class="field-container">
+    <mat-form-field appearance="outline">
+      <mat-label>Term of loan repayment (in months)*</mat-label>
+      <input formControlName="loanTerm" matInput type="number" />
+      <mat-error *ngIf="form.invalid">{{ValidateLoanTerm()}}</mat-error>
+    </mat-form-field>
+  </div>
+  <div class="field-container">
+    <mat-form-field appearance="outline">
+      <mat-label>Children: choose an option</mat-label>
+      <mat-select formControlName="children">
+        <mat-option *ngFor="let child of children" [value]="child.id">{{child.name}}</mat-option>
+        <!-- <mat-option [value]="'NONE'">NONE</mat-option>
+        <mat-option [value]="'SINGLE'">SINGLE</mat-option>
+        <mat-option [value]="'MULTIPLE'">MULTIPLE</mat-option>  -->
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="field-container">
+    <mat-form-field appearance="outline">
+      <mat-label>Co-applicant: choose an option</mat-label>
+      <mat-select formControlName="coapplicant">
+        <mat-option *ngFor="let coapplicant of coapplicants" [value]="coapplicant.id">{{coapplicant.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <hr />
+  <div class="field-container">
+      <button mat-flat-button color="primary" [disabled]="form.invalid">Save Changes</button>
+  </div>
+  <div class="field-container">
+    <app-display-errors [errors]="errors"></app-display-errors> <!-- Display Web API Errors as per requirement-->
+  </div>
+  </form>
+</div>
+
